@@ -1,0 +1,51 @@
+The Sin Digoo Affair
+URL:http://www.secureworks.com/research/threats/sindigoo/
+Date: 29 February 2012
+Author: Joe Stewart, Director of Malware Research, Dell SecureWorks Counter Threat Unit Research Team
+
+"We cannot enter into informed alliances until we are acquainted with the designs of our neighbors and the plans of our adversaries." - Sun Tzu, The Art of War
+
+Introduction
+The story of the Sin Digoo affair begins with a set of Internet domain registrations dating back to 2004. Between 2004 and 2011, a person using
+the email address jeno_1980@hotmail.com registered several domains using the names "Tawnya Grilth" and "Eric Charles". Curiously, all of
+the "Tawnya Grilth" domains showed the registrant's physical address to be a post office box in the fictional/misspelled town of "Sin Digoo",
+California.
+
+Figure 1. Characteristics of domains registered by jeno_1980@hotmail.com.
+In 2006 and 2007, jeno_1980@hotmail.com registered a number of domains under the "Tawnya Grilth" alias that have appeared repeatedly on
+reports published by various automated malware analysis systems and antivirus websites. The Dell SecureWorks CTUSM research team examined malware samples using these domains and concluded that these domains were involved in a larger pattern of malware-based espionage, sometimes referred to as Advanced Persistent Threat (APT) activity.
+
+Espionage malware
+There are two primary malware families involved with the Sin Digoo domains. One is known as "Enfal", which is short for "EtenFalcon", a
+string found inside early samples. The involvement of actors using this malware for espionage was first detailed in 2010 in a joint report by the
+Information Warfare Monitor and the Shadowserver Foundation. The report, titled "Shadows in the Cloud: Investigating Cyber Espionage
+2.0," was a continuation of research from an earlier report titled "Tracking GhostNet: Investigating a Cyber Espionage Network." A later report
+by antivirus firm Trend Micro titled "The LURID Downloader" further details a campaign of espionage by this malware against targets worldwide.
+
+Figure 2. Sin Digoo connection to Enfal malware.
+A second family of malware connecting to the "Tawnya Grilth" domains is less well-known, although a couple of antivirus companies have
+used the names "RegSubsDat", "RegSubDat" or "Kirpich" to refer to it. A recent variant was described by the information security firm CyberESI in a 2011 blog post titled "India-United States Naval Cooperation.doc Analysis." Details regarding the earlier variant used in the Sin Digoo
+activity was first analyzed in a blog posting by Don C. Weber titled "Malware Characteristics Report - Trojan.RegSubsDat.A" on his Security
+Ripcord blog.
+
+Figure 3. Sin Digoo connection to RegSubsDat malware
+Although windowsaupdate.com is not a "Tawnya Grilth" domain according to the WHOIS data, the name is almost certainly related to the domain windowsaupdate.net, especially given the same subdomain naming pattern (e.g., v4, v12, v14).
+
+Victim discovery
+CTU analysts sinkholed a number of the "Tawnya Grilth" domains in 2011 and 2012. Traffic from infected victim computers is now sent to
+servers that log connections, gather statistics, and notify victims when possible. The initial findings from the sinkholing activity are:
+1. Between 100 and 200 computers located in Vietnam, Brunei, and Myanmar are infected by RegSubsDat. Analysis of the IP addresses connecting to the sinkhole show that many are government ministries. Additionally, more than one regional petroleum company and a
+newspaper has been infected.
+2. A handful of victim computers in Europe and the Middle East are infected by RegSubsDat, Enfal, and one other unknown trojan. These
+computers belong to government ministries in different countries, an embassy, a nuclear safety agency, and other business-related
+groups. Additionally, there is an embassy located inside mainland China that is infected.
+The CTU researchers have notified many of the national computer security incident response teams (CSIRTs) in the countries where infections
+were detected and are continuing this notification process. The notifications include the necessary information to locate victims within the
+country, inform the victims, and mitigate the infections.
+
+Link to RSA breach
+In addition to the GhostNet link, connections can also be drawn between the malware used in the Sin Digoo activity and the RSA breach revealed in early 2011. According to the US-CERT EWIN-11-077 bulletin, a number of command-and-control (C2) hostnames used by RegSubsDat shared three different IP addresses at different points in time, with one of the hostnames known to be part of the RSA breach. This C2
+hostname was used in a piece of malware known as "Murcy", which was detailed in "Command and Control in the Fifth Domain," a 2012 report by Command Five Pty Ltd.
+
+
+
