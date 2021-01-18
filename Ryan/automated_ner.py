@@ -49,28 +49,40 @@ def main():
                     root = tmp
 
                 print("Running flair4class algorithm on '" + filename + "'...")
-                try:
-                    with open(os.path.join(root, "flair4class_" + filename), 'w') as file:
-                        file.writelines("%s\n" % str(entity) for entity in flair_ner(text, flair_4class))
-                    print("Completed!")
-                except Exception as err:
-                    logging.error("flair4class failed on '" + os.path.join(root, filename) + "': " + str(err))
-                
+                if os.path.isfile(os.path.join(root, "flair4class_" + filename)):
+                    print("File already exists!")
+                else:
+                    try:
+                        output = flair_ner(text, flair_4class)
+                        with open(os.path.join(root, "flair4class_" + filename), 'w') as file:
+                            file.writelines("%s\n" % str(entity) for entity in output)
+                        print("Completed!")
+                    except Exception as err:
+                        logging.error("flair4class failed on '" + os.path.join(root, filename) + "': " + str(err))
+
                 print("Running flair12class algorithm on '" + filename + "'...")
-                try:
-                    with open(os.path.join(root, "flair12class_" + filename), 'w') as file:
-                        file.writelines("%s\n" % str(entity) for entity in flair_ner(text, flair_12class))
-                    print("Completed!")
-                except Exception as err:
-                    logging.error("flair12class failed on '" + os.path.join(root, filename) + "': " + str(err))
+                if os.path.isfile(os.path.join(root, "flair12class_" + filename)):
+                    print("File already exists!")
+                else:
+                    try:
+                        output = flair_ner(text, flair_12class)
+                        with open(os.path.join(root, "flair12class_" + filename), 'w') as file:
+                            file.writelines("%s\n" % str(entity) for entity in output)
+                        print("Completed!")
+                    except Exception as err:
+                        logging.error("flair12class failed on '" + os.path.join(root, filename) + "': " + str(err))
 
                 print("Running polyglot algorithm on '" + filename + "'...")
-                try:
-                    with open(os.path.join(root, "polyglot_" + filename), 'w') as file:
-                        file.writelines("%s\n" % str(entity) for entity in polyglot_ner(text))
-                    print("Completed!")
-                except Exception as err:
-                    logging.error("polyglot failed on '" + os.path.join(root, filename) + "': " + str(err))
+                if os.path.isfile(os.path.join(root, "polyglot_" + filename)):
+                    print("File already exists!")
+                else:
+                    try:
+                        output = polyglot_ner(text)
+                        with open(os.path.join(root, "polyglot_" + filename), 'w') as file:
+                            file.writelines("%s\n" % str(entity) for entity in output)
+                        print("Completed!")
+                    except Exception as err:
+                        logging.error("polyglot failed on '" + os.path.join(root, filename) + "': " + str(err))
                 print()
 
 if __name__ == "__main__":
