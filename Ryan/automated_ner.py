@@ -41,36 +41,49 @@ def main():
                     except Exception as err:
                         logging.error("Unable to read file '" + os.path.join(root, filename) + "': " + str(err))
                         continue
-                        
+                
+                fileRoot = root #Handles multiple txts in the same folder
                 if os.path.basename(os.path.normpath(root)) != os.path.splitext(filename)[0]:
                     tmp = os.path.join(root, os.path.splitext(filename)[0])
                     os.mkdir(tmp)
                     os.rename(os.path.join(root, filename), os.path.join(tmp, filename))
-                    root = tmp
+                    fileRoot = tmp
 
                 print("Running flair4class algorithm on '" + filename + "'...")
-                try:
-                    with open(os.path.join(root, "flair4class_" + filename), 'w') as file:
-                        file.writelines("%s\n" % str(entity) for entity in flair_ner(text, flair_4class))
-                    print("Completed!")
-                except Exception as err:
-                    logging.error("flair4class failed on '" + os.path.join(root, filename) + "': " + str(err))
-                
+                if os.path.isfile(os.path.join(fileRoot, "flair4class_" + filename)):
+                    print("File already exists!")
+                else:
+                    try:
+                        output = flair_ner(text, flair_4class)
+                        with open(os.path.join(fileRoot, "flair4class_" + filename), 'w') as file:
+                            file.writelines("%s\n" % str(entity) for entity in output)
+                        print("Completed!")
+                    except Exception as err:
+                        logging.error("flair4class failed on '" + os.path.join(fileRoot, filename) + "': " + str(err))
+
                 print("Running flair12class algorithm on '" + filename + "'...")
-                try:
-                    with open(os.path.join(root, "flair12class_" + filename), 'w') as file:
-                        file.writelines("%s\n" % str(entity) for entity in flair_ner(text, flair_12class))
-                    print("Completed!")
-                except Exception as err:
-                    logging.error("flair12class failed on '" + os.path.join(root, filename) + "': " + str(err))
+                if os.path.isfile(os.path.join(fileRoot, "flair12class_" + filename)):
+                    print("File already exists!")
+                else:
+                    try:
+                        output = flair_ner(text, flair_12class)
+                        with open(os.path.join(fileRoot, "flair12class_" + filename), 'w') as file:
+                            file.writelines("%s\n" % str(entity) for entity in output)
+                        print("Completed!")
+                    except Exception as err:
+                        logging.error("flair12class failed on '" + os.path.join(fileRoot, filename) + "': " + str(err))
 
                 print("Running polyglot algorithm on '" + filename + "'...")
-                try:
-                    with open(os.path.join(root, "polyglot_" + filename), 'w') as file:
-                        file.writelines("%s\n" % str(entity) for entity in polyglot_ner(text))
-                    print("Completed!")
-                except Exception as err:
-                    logging.error("polyglot failed on '" + os.path.join(root, filename) + "': " + str(err))
+                if os.path.isfile(os.path.join(fileRoot, "polyglot_" + filename)):
+                    print("File already exists!")
+                else:
+                    try:
+                        output = polyglot_ner(text)
+                        with open(os.path.join(fileRoot, "polyglot_" + filename), 'w') as file:
+                            file.writelines("%s\n" % str(entity) for entity in output)
+                        print("Completed!")
+                    except Exception as err:
+                        logging.error("polyglot failed on '" + os.path.join(fileRoot, filename) + "': " + str(err))
                 print()
 
 if __name__ == "__main__":
