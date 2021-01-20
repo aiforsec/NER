@@ -17,21 +17,21 @@ def flair_ner(document, model):
 def polyglot_ner(document):
     return {(' '.join(entity),entity.tag.split('-')[-1]) for entity in Text(document).entities}
 
-directory = r'C:\Users\Jianr\Desktop\2018'
+directory = r'C:\Users\Jianr\Desktop\2020'
 for filename in os.listdir(directory):
     print(os.path.join(directory, filename))
     f = open (os.path.join(directory, filename), 'r', encoding='ISO-8859-1')
     text = f.read()
     text = ''.join([l for l in text if unicodedata.category(l)[0] not in ('S', 'M', 'C')])
     f.close()
-    subdirectory = r'C:\Users\Jianr\Desktop\2018pro\%s' % filename.replace(".txt", "")
-    try:      
-        os.mkdir(r'C:\Users\Jianr\Desktop\2018pro\%s' % filename.replace(".txt", ""))
-        if len(os.path.join(directory, filename)) >= 260:
+    subdirectory = r'C:\Users\Jianr\Desktop\2020pro\%s' % filename.replace(".txt", "").strip(" ")
+    try:
+        os.mkdir(r'C:\Users\Jianr\Desktop\2020pro\%s' % filename.replace(".txt", "").strip(" "))
+        if len(os.path.join(subdirectory, filename)) >= 260:
             new_file = filename[:10] + ".txt"
         else:
             new_file = filename        
-        original = os.path.join(directory, new_file)
+        original = os.path.join(directory, filename)
         target = os.path.join(subdirectory, new_file)
         shutil.copyfile(original, target)  
     except:
